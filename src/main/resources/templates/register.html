@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http:/www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login - Company ABC</title>
+</head>
+<body>
+<h2>Register Page</h2>
+<div>
+<form th:action="@{/authenticate}" method="POST" style="max-width: 400px; margin: 0 auto;">
+    <p>
+        Username: <input type="text" name="username" required />  
+    </p>
+    <p>
+        Password: <input type="text" name="password" required />
+    </p>
+    <p>
+        <input type="submit" value="Register" />
+    </p>
+</form>
+</div>
+</body>
+</html>
