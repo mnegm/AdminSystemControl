@@ -1,0 +1,28 @@
+<! doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Users Page</title>
+</head>
+
+<body>
+	<div>
+		<table>
+			<tr th:each="user: ${users}">
+				<td th:text="${user.id}" />
+				<td th:text="${user.username}" />
+				<td th:text="${user.role}" />
+				<td>
+					<form th:action="@{/admin/users/{id}(id=${user.id})}" th:method=Get>
+						<input type="submit" value="Update" />
+					</form>	
+				</td>
+				<td>
+					<form th:action="@{/admin/users/{id}(id=${user.id})}" th:method=post>
+						<input type="submit" value="Delete" />	
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

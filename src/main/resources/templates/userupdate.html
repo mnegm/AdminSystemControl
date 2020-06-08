@@ -1,0 +1,15 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title th:text="${user.username}"></title>
+	</head>
+	<body>
+		<form action="#" th:action="@{/admin/users}" th:object="${user}" method="post">
+    		<p>Username: <input type="text" th:field="*{username}" /></p>
+       		<p>Password: <input type="text" th:field="*{password}" /></p>
+       		<input th:field="*{id}" type="hidden"/>
+       		<input th:field="*{role}" type="hidden"/>
+        	<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    	</form>
+	</body>
+</html>

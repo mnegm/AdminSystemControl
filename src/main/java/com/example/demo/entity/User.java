@@ -30,10 +30,9 @@ public class User {
 
 	public User(String username, String password, String role) {
 		
-		BCrypt bycrpt = new BCrypt();
 		String salt = BCrypt.gensalt(12);
-		password = bycrpt.hashpw(password, salt);
-		
+		password = BCrypt.hashpw(password, salt);
+		role= "ROLE_"+role;
 		this.username = username;
 		this.password = password;
 		this.role = role;
@@ -65,6 +64,8 @@ public class User {
 	}
 
 	public void setPassword(String password) {
+		String salt = BCrypt.gensalt(12);
+		password = BCrypt.hashpw(password, salt);
 		this.password = password;
 	}
 
