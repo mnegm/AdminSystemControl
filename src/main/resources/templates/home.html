@@ -1,11 +1,14 @@
 <! doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>home Page</title>
-	</head>
-	
-	<body>
-		<h1>This Is Home Page</h1>
-		<a href="/admin/users" >users</a>
-	</body>
+<head>
+<title>home Page</title>
+</head>
+
+<body>
+	<h1>This Is Home Page</h1>
+	<a href="/admin/users">users</a>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
+</body>
 </html>
