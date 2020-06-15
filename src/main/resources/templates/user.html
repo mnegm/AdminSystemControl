@@ -1,0 +1,40 @@
+<! doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>User Page</title>
+</head>
+
+<body>
+	<div>
+		<H2>Friends List</H2>
+		<table>
+			<tr th:each="friend: ${friends}">
+				<td th:text="${friend.username}" />
+				<td th:text="${friend.role}" />
+				<td>
+					<form th:action="@{/user/{id}/{firendid}(id=${user.id},firendid=${friend.id})}" th:method=post>
+						<input type="submit" value="DeleteFriend" />	
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<h2>Friends to Add</h2>
+		<table>
+			<tr th:each="friend: ${notFriends}">
+				<td th:text="${friend.username}" />
+				<td th:text="${friend.role}" />
+				<td>
+					<form th:action="@{/user/{id}/{firendid}(id=${user.id},firendid=${friend.id})}" th:method=get>
+						<input type="submit" value="AddFriend" />
+					</form>	
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<a href="/"><button>Home</button></a>
+	</div>
+</body>
+</html>

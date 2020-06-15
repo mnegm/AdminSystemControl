@@ -1,10 +1,16 @@
 package com.example.demo.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -16,7 +22,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="user_id")
+	@Column(name="id")
 	private int id;
 	
 	
@@ -27,6 +33,14 @@ public class User {
 	private int enabled;
 	
 	private String role;
+	
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name="friends",
+			joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "id", nullable=false)},
+			inverseJoinColumns = {@JoinColumn(name="friend_id", referencedColumnName = "id",nullable=false)})
+	private List<User> friends=  new ArrayList<User>();
 
 	public User(String username, String password, String role) {
 		
@@ -85,10 +99,48 @@ public class User {
 		this.role = role;
 	}
 
+
+
+	public List<User> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(List<User> friends) {
+		this.friends = friends;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + "]";
+		return "User [" + " username=" + username + ", password=" + password + 
+				 ", role=" + role + "]";
 	}
+	
+	public void addFriend(User friend) {
+
+		friends.add(friend);
+	}
+	
+	public void deleteFriend(User friend) {
+	
+		for(int i =0;i<friends.size();i++) {
+			if(friend.id == friends.get(i).id) {
+				friends.remove(i);
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

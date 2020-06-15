@@ -1,7 +1,11 @@
 package com.example.demo.Controller;
 
 
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +18,16 @@ import com.example.demo.entity.User;
 
 @Controller
 @RequestMapping("/")
-public class UsersController {
+public class LoginController {
 	
 	@Autowired
 	private UserRepository userRepo;
 	
 	@GetMapping("/")
-	public String homePage() {
+	public String homePage(Authentication auth,Model model) {
+		System.out.println(auth.getName());
+		User user = userRepo.getUserByUsername(auth.getName());
+		model.addAttribute("user" , user);
 		return "home";
 	}
 	
@@ -42,7 +49,8 @@ public class UsersController {
 	}
 	
 	@PostMapping("/authenticate")
-	public String authenticate(@ModelAttribute("user") User user, Model model) {
+	public String authenticate(@ModelAttribute("user") User user) {
+		System.out.println(user);
 		userRepo.save(user);
 		return "login";
 	}

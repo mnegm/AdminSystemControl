@@ -1,5 +1,6 @@
 <! doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>home Page</title>
 </head>
@@ -7,6 +8,9 @@
 <body>
 	<h1>This Is Home Page</h1>
 	<a href="/admin/users">users</a>
+	<div>
+		<a th:href="@{/user/{id}(id=${user.id})}">Profile</a>
+	</div>
 	<form th:action="@{/logout}" method="post">
 		<input type="submit" value="Logout" />
 	</form>
