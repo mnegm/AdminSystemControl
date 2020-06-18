@@ -1,9 +1,6 @@
 package com.example.demo.Controller;
 
 
-import java.security.Principal;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,7 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.dao.CommentRepo;
+import com.example.demo.dao.PostRepo;
 import com.example.demo.dao.UserRepository;
+import com.example.demo.entity.Comment;
+import com.example.demo.entity.Post;
 import com.example.demo.entity.User;
 
 @Controller
@@ -22,6 +23,18 @@ public class LoginController {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private PostRepo postRepo;
+	
+	@Autowired
+	private CommentRepo commRepo;
+	
+	@GetMapping("/test")
+	public String testPage() {
+		
+		return "home";
+	}
 	
 	@GetMapping("/")
 	public String homePage(Authentication auth,Model model) {

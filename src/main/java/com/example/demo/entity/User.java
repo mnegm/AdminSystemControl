@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -33,6 +35,9 @@ public class User {
 	private int enabled;
 	
 	private String role;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private List<Post> posts= new ArrayList<Post>();
 	
 	
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -107,6 +112,15 @@ public class User {
 
 	public void setFriends(List<User> friends) {
 		this.friends = friends;
+	}
+	
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	@Override

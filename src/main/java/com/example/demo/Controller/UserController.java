@@ -8,11 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.dao.PostRepo;
 import com.example.demo.dao.UserRepository;
+import com.example.demo.entity.Post;
 import com.example.demo.entity.User;
 
 @Controller
@@ -21,6 +25,9 @@ public class UserController {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private PostRepo postRepo;
 	
 	@GetMapping("")
 	public String userPage(@PathVariable int id,Model model,Principal auth) {
@@ -33,10 +40,15 @@ public class UserController {
 		List<User> friends = new ArrayList<User>(user.getFriends());
 		friends.add(user);
 		List<User> notFriends = nonFriends(all, friends);
-
+		List<Post> friendsPosts = new ArrayList<Post>();
+		for(User userFriend : user.getFriends()) {
+			friendsPosts.addAll(userFriend.getPosts());
+		}
 		model.addAttribute("user", user);
 		model.addAttribute("friends", user.getFriends());
 		model.addAttribute("notFriends",notFriends);
+		model.addAttribute("posts", user.getPosts());
+		model.addAttribute("friendsPosts", friendsPosts);
 		return "user";
 	}
 	
@@ -78,6 +90,17 @@ public class UserController {
 		return notFriends;
 	}
 	
+	
+	@GetMapping("/post")
+	public String addPost(@RequestParam("post") String txt, @PathVariable int id) {
+		
+		Post post = new Post();
+		post.setPost(txt);
+		post.setUser(userRepo.getOne(id));
+		postRepo.save(post);
+		
+		return "redirect:/user/{id}";
+	}
 	
 	
 	

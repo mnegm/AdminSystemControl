@@ -34,6 +34,30 @@
 		</table>
 	</div>
 	<div>
+		<h3>Add Post</h3>
+		<form th:action="@{/user/{id}/post(id=${user.id})}" method="get"
+			style="max-width: 400px; margin: 0 auto;">
+			<p>
+				<input type="text" name="post" required />
+			</p>
+			<p>
+				<input type="submit" value="POST" />
+			</p>
+		</form>
+	</div>
+	<div>
+		<h2>Posts</h2>
+		<div th:each="post: ${posts}">
+			<p th:text="${post.post}" />
+			<hr>
+		</div>
+		<h4>Friends posts</h4>
+		<div th:each="post: ${friendsPosts}">
+			<p th:text="${post.post}" />
+			<p th:text="${post.user.username}" />
+		</div>		
+	</div>
+	<div>
 		<a href="/"><button>Home</button></a>
 	</div>
 </body>
