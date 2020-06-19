@@ -12,8 +12,10 @@
 				<td th:text="${friend.username}" />
 				<td th:text="${friend.role}" />
 				<td>
-					<form th:action="@{/user/{id}/{firendid}(id=${user.id},firendid=${friend.id})}" th:method=post>
-						<input type="submit" value="DeleteFriend" />	
+					<form
+						th:action="@{/user/{id}/{firendid}(id=${user.id},firendid=${friend.id})}"
+						th:method=post>
+						<input type="submit" value="DeleteFriend" />
 					</form>
 				</td>
 			</tr>
@@ -26,9 +28,11 @@
 				<td th:text="${friend.username}" />
 				<td th:text="${friend.role}" />
 				<td>
-					<form th:action="@{/user/{id}/{firendid}(id=${user.id},firendid=${friend.id})}" th:method=get>
+					<form
+						th:action="@{/user/{id}/{firendid}(id=${user.id},firendid=${friend.id})}"
+						th:method=get>
 						<input type="submit" value="AddFriend" />
-					</form>	
+					</form>
 				</td>
 			</tr>
 		</table>
@@ -46,16 +50,33 @@
 		</form>
 	</div>
 	<div>
-		<h2>Posts</h2>
-		<div th:each="post: ${posts}">
-			<p th:text="${post.post}" />
-			<hr>
-		</div>
+		<h3>MY Posts</h3>
+		<table>
+			<tr th:each="post: ${posts}">
+				<td th:text="${post.post}" />
+				<td>
+					<form
+						th:action="@{/user/{id}/posts/{postId}(id=${user.id}, postId=${post.id})}"
+						method="get">
+						<input type="submit" value="Update" />
+					</form>
+				</td>
+				<td>
+					<form
+						th:action="@{/user/{id}/posts/{postId}(id=${user.id}, postId=${post.id})}"
+						method="post">
+						<input type="submit" value="Delete" />
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div>
 		<h4>Friends posts</h4>
 		<div th:each="post: ${friendsPosts}">
 			<p th:text="${post.post}" />
 			<p th:text="${post.user.username}" />
-		</div>		
+		</div>
 	</div>
 	<div>
 		<a href="/"><button>Home</button></a>

@@ -1,0 +1,16 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="${user.username}"></title>
+</head>
+<body>
+	<form
+		th:action="@{/user/{id}/posts/{postId}/update(id=${user.id}, postId=${post.id})}" method="post">
+		<input type="text" name="post" th:value="${post.post}" /> 
+		<input type="submit" value="Submit" />
+	</form>
+	<div>
+		<a href="/"><button>Home</button></a>
+	</div>
+</body>
+</html>
