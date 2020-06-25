@@ -1,4 +1,4 @@
-# AdminSystemControl
+# Facebook Fake 
 A backend project similar to facbook where users can 
 1. add each other as friends and update thier friend list 
 2. add posts to thier profiie 
